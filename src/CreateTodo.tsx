@@ -1,17 +1,13 @@
-import {
-  atom,
-  useRecoilState,
-  useRecoilValue,
-  useSetRecoilState,
-} from "recoil";
+import { useSetRecoilState, useRecoilState } from "recoil";
 import { useForm } from "react-hook-form";
-import { todoListState } from "./atoms";
+import { Categoris, todoListState, TODOS_KEY } from "./atoms";
+import { useEffect } from "react";
 interface IForm {
   todo: string;
 }
 function CreateTodo() {
-  //   const [todoList, setTodoList] = useRecoilState(todoListState);
-  const setTodoList = useSetRecoilState(todoListState);
+  const [todoList, setTodoList] = useRecoilState(todoListState);
+  //   const setTodoList = useSetRecoilState(todoListState);
   const {
     register,
     handleSubmit,
@@ -20,25 +16,22 @@ function CreateTodo() {
   } = useForm<IForm>();
 
   const onSubmit = ({ todo }: IForm) => {
+    let idNow = Date.now();
     setTodoList((oldToDos) => [
-      { text: todo, id: Date.now(), category: "TO_DO" },
+      { text: todo, id: idNow, category: Categoris.TO_DO },
       ...oldToDos,
     ]);
     setValue("todo", "");
   };
+
+  useEffect(() => {
+    localStorage.setItem(TODOS_KEY, JSON.stringify(todoList));
+  }, [todoList]);
+  //   console.log(todoList, "submit");
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input
-          {...register("todo", {
-            required: "todo is required",
-            minLength: {
-              value: 5,
-              message: "Your todo is too short.",
-            },
-          })}
-          placeholder="text"
-        />
+        <input {...register("todo")} placeholder="text" />
         <button>submit</button>
       </form>
       {/* <span>{errors?.todo?.message}</span> */}
