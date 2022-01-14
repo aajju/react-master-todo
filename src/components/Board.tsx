@@ -22,9 +22,9 @@ const ReturnDiv = styled.div`
 const Wrapper = styled.div<IWrapperProps>`
   background-color: ${(props) =>
     props.isDraggingOver
-      ? props.draggingFromThisWith
-        ? "blue"
-        : "pink"
+      ? "blue"
+      : props.draggingFromThisWith
+      ? "pink"
       : "red"};
   flex-grow: 1;
   padding: 10px 10px;
@@ -36,6 +36,15 @@ const Title = styled.h2`
   font-weight: 600;
   margin-bottom: 10px;
   font-size: 18px;
+`;
+
+const DelCard = styled.div`
+  width: 400px;
+  height: 200px;
+  background-color: gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 interface IBoardProps {

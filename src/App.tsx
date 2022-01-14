@@ -3,6 +3,8 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { todoListState } from "./atoms";
 import Board from "./components/Board";
+import CreateBoard from "./components/CreateBoard";
+import DelCard from "./components/DelCard";
 
 const Wrapper = styled.div`
   display: flex;
@@ -11,7 +13,7 @@ const Wrapper = styled.div`
   margin: 0 auto;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  /* height: 80vh; */
 `;
 
 const Boards = styled.div`
@@ -29,8 +31,21 @@ function App() {
     console.log(event);
     const { source, destination } = event;
     if (!destination) return;
+    // moved to delete area
+    if (destination.droppableId === "delCard") {
+      console.log("deleted");
+      setTodos((allBoards) => {
+        const copyBoard = [...allBoards[source.droppableId]];
+        copyBoard.splice(source.index, 1);
+        return {
+          ...allBoards,
+          [source.droppableId]: copyBoard,
+        };
+      });
+    }
+
     // moved in same board
-    if (destination.droppableId === source.droppableId) {
+    else if (destination.droppableId === source.droppableId) {
       setTodos((allBoards) => {
         const copyBoard = [...allBoards[source.droppableId]];
         const grabObj = copyBoard[source.index];
@@ -44,7 +59,7 @@ function App() {
     }
 
     // moved to another board
-    if (destination.droppableId !== source.droppableId) {
+    else if (destination.droppableId !== source.droppableId) {
       setTodos((allBoards) => {
         const sourceBoard = [...allBoards[source.droppableId]];
         const grabObj = sourceBoard[source.index];
@@ -62,6 +77,9 @@ function App() {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
+      <DelCard />
+      <CreateBoard />
+
       <Wrapper>
         <Boards>
           {Object.keys(todos).map((boardId) => (

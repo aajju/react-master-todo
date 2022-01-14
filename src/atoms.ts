@@ -5,15 +5,13 @@ export interface ITodo {
   todo: string;
 }
 
-interface ITodoListState {
+export interface ITodoListState {
   [key: string]: ITodo[];
 }
 
 export const todoListState = atom<ITodoListState>({
   key: "todoListState",
-  default: {
-    todo: [],
-    doing: [],
-    done: [],
-  },
+  default: JSON.parse(
+    localStorage.getItem("todoListState") || `{"todo":[],"doing":[],"done":[]}`
+  ),
 });
