@@ -4,9 +4,15 @@ import { ITodoListState, todoListState } from "../atoms";
 import { useRecoilState } from "recoil";
 
 const Wrapper = styled.form`
-  /* width: 100px; */
-  background-color: rebeccapurple;
-  /* height: 100px; */
+  display: flex;
+  max-width: 700px;
+  width: 100%;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  background-color: wheat;
+  margin-bottom: 40px;
 `;
 
 function CreateBoard() {
@@ -33,6 +39,7 @@ function CreateBoard() {
   return (
     <Wrapper onSubmit={handleSubmit(onSubmit)}>
       <input {...register("data")} type="text" placeholder="add a board..." />
+      <button>new board</button>
     </Wrapper>
   );
 }

@@ -77,9 +77,7 @@ function App() {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <DelCard />
       <CreateBoard />
-
       <Wrapper>
         <Boards>
           {Object.keys(todos).map((boardId) => (
@@ -87,6 +85,7 @@ function App() {
           ))}
         </Boards>
       </Wrapper>
+      <DelCard />
     </DragDropContext>
   );
 }

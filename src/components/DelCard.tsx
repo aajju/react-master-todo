@@ -29,7 +29,7 @@ function DelCard() {
           ref={provided.innerRef}
           {...provided.droppableProps}
         >
-          delete
+          delete (drag into here)
         </Wrapper>
       )}
     </Droppable>
