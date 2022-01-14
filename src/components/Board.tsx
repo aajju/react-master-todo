@@ -1,6 +1,7 @@
 import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import { ITodo } from "../atoms";
+import CreateTodo from "./CreateTodo";
 import DraggableCard from "./DraggableCard";
 
 interface IWrapperProps {
@@ -46,6 +47,7 @@ function Board({ todos, boardId }: IBoardProps) {
   return (
     <ReturnDiv>
       <Title>{boardId}</Title>
+      <CreateTodo boardId={boardId} />
       <Droppable droppableId={boardId}>
         {(provided, snapshot) => (
           <Wrapper

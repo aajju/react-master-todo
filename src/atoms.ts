@@ -1,4 +1,4 @@
-import { atom, selector, useSetRecoilState } from "recoil";
+import { atom } from "recoil";
 
 export interface ITodo {
   id: number;
@@ -12,10 +12,7 @@ interface ITodoListState {
 export const todoListState = atom<ITodoListState>({
   key: "todoListState",
   default: {
-    todo: [
-      { id: 1, todo: "hello" },
-      { id: 2, todo: "hi" },
-    ],
+    todo: [],
     doing: [],
     done: [],
   },

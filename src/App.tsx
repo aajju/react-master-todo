@@ -1,9 +1,4 @@
-import {
-  DragDropContext,
-  Droppable,
-  Draggable,
-  DropResult,
-} from "react-beautiful-dnd";
+import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { todoListState } from "./atoms";
@@ -32,7 +27,7 @@ function App() {
   // Object.keys(todos).map((abc) => console.log(abc));
   const onDragEnd = (event: DropResult) => {
     console.log(event);
-    const { draggableId, source, destination } = event;
+    const { source, destination } = event;
     if (!destination) return;
     // moved in same board
     if (destination.droppableId === source.droppableId) {
