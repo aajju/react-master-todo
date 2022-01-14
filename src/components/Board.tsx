@@ -38,15 +38,6 @@ const Title = styled.h2`
   font-size: 18px;
 `;
 
-const DelCard = styled.div`
-  width: 400px;
-  height: 200px;
-  background-color: gray;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 interface IBoardProps {
   todos: ITodo[];
   boardId: string;

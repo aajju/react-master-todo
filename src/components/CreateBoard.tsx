@@ -25,7 +25,7 @@ function CreateBoard() {
     formState: { errors },
   } = useForm<ITodoListState>();
 
-  const onSubmit = ({ data }: ITodoListState) => {
+  const onSubmit = ({ data }: any) => {
     setTodoList((oldBoards) => {
       return {
         ...oldBoards,

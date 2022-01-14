@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 interface ICardProps {
   isDragging: Boolean;
-  combineWith: string;
+  // combineWith: string;
 }
 
 const Card = styled.div<ICardProps>`
@@ -12,11 +12,7 @@ const Card = styled.div<ICardProps>`
   margin-bottom: 5px;
   padding: 10px 10px;
   background-color: ${(props) =>
-    props.isDragging
-      ? "tomato"
-      : props.combineWith === "delCard"
-      ? "red"
-      : props.theme.cardColor};
+    props.isDragging ? "tomato" : props.theme.cardColor};
   box-shadow: ${(props) => (props.isDragging ? "2px 2px 2px black" : "none")};
 `;
 
