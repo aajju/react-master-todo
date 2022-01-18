@@ -4,6 +4,7 @@ import {
   useMotionValue,
   useTransform,
   useViewportScroll,
+  AnimateSharedLayout,
   AnimatePresence,
 } from "framer-motion";
 import { useState } from "react";
@@ -85,6 +86,51 @@ const boxSlideVar = {
   },
 };
 
+const OverlayVar = {
+  initial: {},
+  animate: {},
+  exit: {},
+};
+
+const GridWrapper = styled(motion.div)`
+  width: 100%;
+  height: 25%;
+  position: relative;
+`;
+
+const GridBoxOne = styled(motion.div)`
+  width: 100%;
+  height: 100%;
+  background-color: rebeccapurple;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 30px;
+`;
+const Overlay = styled(motion.div)`
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  position: absolute;
+`;
+const GridBox = styled(motion.div)`
+  background-color: white;
+  :first-child,
+  :last-child {
+    grid-column: span 2;
+  }
+`;
+
+const OverlayBox = styled(motion.div)`
+  background-color: wheat;
+  width: 400px;
+  height: 150px;
+`;
+
 // const Circle = styled(motion.div)`
 //   width: 70px;
 //   height: 70px;
@@ -144,6 +190,7 @@ function App() {
 
   const [visible, setVisible] = useState(1);
   const [back, setBack] = useState(false);
+  // const [isModal, setIsModal] = useState(false);
 
   const nextClick = () => {
     setBack(false);
@@ -153,6 +200,13 @@ function App() {
     setBack(true);
     setVisible((prev) => (prev !== 1 ? prev - 1 : prev));
   };
+
+  // const finalClick = () => {
+  //   setIsModal((prev) => !prev);
+  //   // console.log(isModal);
+  // };
+
+  const [id, setId] = useState<null | string>(null);
 
   return (
     <Wrapper style={{ background: bgColor }}>
@@ -229,6 +283,27 @@ function App() {
         <Circle variants={CircleVariants} /> */}
           </Box1>
         ) : null}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        <GridWrapper>
+          <GridBoxOne>
+            {["1", "2", "3", "4"].map((i) => {
+              return <GridBox key={i} layoutId={i} onClick={() => setId(i)} />;
+            })}
+          </GridBoxOne>
+          {id ? (
+            <Overlay
+              variants={OverlayVar}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              onClick={() => setId(null)}
+            >
+              <OverlayBox layoutId={id}></OverlayBox>
+            </Overlay>
+          ) : null}
+        </GridWrapper>
       </AnimatePresence>
     </Wrapper>
   );
