@@ -1,45 +1,17 @@
-import { atom, selector, useSetRecoilState } from "recoil";
+import { atom } from "recoil";
 
-export const TODOS_KEY = "todoListState";
-
-export enum Categoris {
-  "TO_DO" = "TO_DO",
-  "DOING" = "DOING",
-  "DONE" = "DONE",
-}
-
-export interface ITodoList {
-  text: string;
+export interface ITodo {
   id: number;
-  category: Categoris;
+  todo: string;
 }
 
-export const todoListState = atom<ITodoList[]>({
-  key: TODOS_KEY,
-  default: JSON.parse(localStorage.getItem(TODOS_KEY) || "[]"),
-});
+export interface ITodoListState {
+  [key: string]: ITodo[];
+}
 
-export const todoSelector = selector({
-  key: "todoSelector",
-  get: ({ get }) => {
-    const todos = get(todoListState);
-    // console.log(todos);
-    return [
-      todos.filter((todo) => todo.category === Categoris.TO_DO),
-      todos.filter((todo) => todo.category === Categoris.DOING),
-      todos.filter((todo) => todo.category === Categoris.DONE),
-    ];
-  },
+export const todoListState = atom<ITodoListState>({
+  key: "todoListState",
+  default: JSON.parse(
+    localStorage.getItem("todoListState") || `{"todo":[],"doing":[],"done":[]}`
+  ),
 });
-
-// export const toDoSelector = selector({
-//   key: "toDoSelector",
-//   get: ({ get }) => {
-//     const toDos = get(toDoState);
-//     return [
-//       toDos.filter((toDo) => toDo.category === "TO_DO"),
-//       toDos.filter((toDo) => toDo.category === "DOING"),
-//       toDos.filter((toDo) => toDo.category === "DONE"),
-//     ];
-//   },
-// });
